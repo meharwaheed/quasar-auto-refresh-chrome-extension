@@ -13,7 +13,7 @@
         dense
         outlined
         type="number"
-        label="End Interval"
+        label="End Interval1"
         v-model="endInterval"
         class="col-6"
       />

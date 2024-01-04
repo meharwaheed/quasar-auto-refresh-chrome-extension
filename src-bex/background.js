@@ -75,11 +75,22 @@ export default bexBackground((bridge /* , allActiveConnections */) => {
    */
   bridge.on('reloading.page', (data) => {
     let delay = data[Math.floor(Math.random()*data.length)];
-    setTimeout(() => {
-      chrome.tabs.query({active: true, currentWindow: true}, function (arrayOfTabs) {
-        chrome.tabs.reload(arrayOfTabs[0].id);
+    let chrome_tab = null
+    chrome.tabs.query({active: true}, function (arrayOfTabs) {
+      if(arrayOfTabs[0] && arrayOfTabs[0].id) {
+        chrome_tab = arrayOfTabs[0].id
+      }
+    });
+    setInterval(function() {
+      // delay = data[Math.floor(Math.random()*data.length)];
+      // document.win/dow.location.reload()
+      chrome.tabs.query({active: true}, function (arrayOfTabs) {
+        if(arrayOfTabs[0] && arrayOfTabs[0].id)
+          console.log('page reloading');
+        chrome.tabs.reload(chrome_tab);
       });
-      bridge.send('reloading.page', data);
-    }, delay);
+      // respond()
+      // bridge.send('reloading.page', data);
+    }, 5000);
   })
 })
