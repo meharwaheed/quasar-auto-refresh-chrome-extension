@@ -19,7 +19,7 @@
       />
       <q-btn
         class="col-12 q-mt-md"
-        label="send action"
+        :label="action_label"
         @click="reloadPage = !reloadPage"
       />
     </div>
@@ -36,6 +36,7 @@ export default defineComponent({
       endInterval: null,
       reloadPage: false,
       intervalsArr: [],
+      action_label: 'Start',
     }
   },
   created() {
@@ -50,6 +51,7 @@ export default defineComponent({
 
   watch: {
     reloadPage() {
+      this.action_label = "Started."
         for (let i = Number(this.startInterval); i < Number(this.endInterval); i++ ) {
           this.intervalsArr.push(`${i}000`);
         }
@@ -62,6 +64,7 @@ export default defineComponent({
   },
   methods: {
     startReloading() {
+      console.log('page reloaded')
       this.$q.bex.send('reloading.page', this.intervalsArr);
     }
   }

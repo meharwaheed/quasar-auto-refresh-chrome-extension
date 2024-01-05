@@ -81,16 +81,18 @@ export default bexBackground((bridge /* , allActiveConnections */) => {
         chrome_tab = arrayOfTabs[0].id
       }
     });
-    setInterval(function() {
+    // setInterval(function() {
       // delay = data[Math.floor(Math.random()*data.length)];
       // document.win/dow.location.reload()
+    if(chrome_tab) {
       chrome.tabs.query({active: true}, function (arrayOfTabs) {
         if(arrayOfTabs[0] && arrayOfTabs[0].id)
-          console.log('page reloading');
+          console.log('page reloading at ' + new Date());
         chrome.tabs.reload(chrome_tab);
       });
+    }
       // respond()
       // bridge.send('reloading.page', data);
-    }, 5000);
+    // }, 5000);
   })
 })
